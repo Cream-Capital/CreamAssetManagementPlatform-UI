@@ -1,0 +1,15 @@
+<p>
+  stakings works!
+</p>
+amount: <input type="number" #amount>
+<br>
+days: <input type="number" #days>
+<button  (click)="stake(amount.value, days.value)">Stake</button>
+<ul>
+  <li *ngFor="let staking of stakings">
+    {{staking.value.amount/100 | number:'.2-2'}}
+    <button  (click)="unlock(staking.position)">Unlock</button>
+  </li>
+</ul>
+
+<button (click)="claimDividends()">Claim Dividends</button>

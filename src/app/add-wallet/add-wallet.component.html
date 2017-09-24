@@ -1,0 +1,9 @@
+<p>
+  add-wallet works!
+</p>
+{{message}}
+<form>
+  <!--<input type="file" (change)="changeListener($event)" #input />-->
+  private key: <input type="password" #privateKeyInput />
+  <button (click)="processPrivateKey(privateKeyInput.value)" >Submit</button>
+</form>
