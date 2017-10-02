@@ -3,7 +3,12 @@
 </p>
 {{message}}
 <form>
-  <!--<input type="file" (change)="changeListener($event)" #input />-->
+  file:<input type="file" (change)="changeListener($event)" #input />
+  password:<input type="password" #passwordInput />
+  <button (click)="unlockWallet(passwordInput.value)" >Submit</button>
+  <br>
+  or
+  <br>
   private key: <input type="password" #privateKeyInput />
   <button (click)="processPrivateKey(privateKeyInput.value)" >Submit</button>
 </form>

@@ -32,6 +32,13 @@ export class SharedService {
     this.privateKeyBuffer = Buffer.from(privateKey, 'hex');
   }
 
+  setAccount(account) {
+    this.account = account;
+    this.creamCashContract = new this.web3.eth.Contract(creamCashJsonInterface, this.creamCashAddress);
+    this.creamDividendsContract = new this.web3.eth.Contract(creamDividendsJsonInterface, this.creamDividendsAddress);
+    this.privateKeyBuffer = Buffer.from(account.privateKey, 'hex');
+  }
+
   sendCreamCashRawTransaction(data: string) {
     this.web3.eth.getTransactionCount(this.account.address).then(function (count) {
       const txParams = {
