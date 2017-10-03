@@ -1,0 +1,16 @@
+<p>
+  exchange works!
+</p>
+Buy Cream Cash, price in ETH:{{buyPriceInETH}}
+<br>
+amount of ETH to send: <input type="number" step="0.01" (change)="(estimateCreamCashReceived(amountOfEtherToSend.value))" #amountOfEtherToSend>
+<br>
+price in ETH: {{estimatedCreamCash}}
+<button  (click)="buyCreamCash(amountOfEtherToSend.value)">Buy</button>
+<br>
+Sell Cream Cash, price in ETH: {{sellPriceInETH}}
+<br>
+amount: <input type="number" step="0.01" (change)="(estimateSellPriceInETH(amountToSell.value))" #amountToSell>
+<br>
+amount of ETH to be received: {{estimatedSellPrice}}
+<button  (click)="sellCreamCash(amountToSell.value)">Sell</button>
