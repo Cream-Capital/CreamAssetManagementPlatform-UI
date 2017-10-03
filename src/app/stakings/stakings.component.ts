@@ -25,15 +25,24 @@ export class StakingsComponent implements OnInit {
   }
 
   unlock(position: number) {
-    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.unlock(position).encodeABI());
+    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.unlock(position).encodeABI())
+      .on('transactionHash', function (transactionHash) {
+      console.log(transactionHash);
+    }).then(console.log);
   }
 
   stake(amount: number, days: number) {
-    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.stake(amount * 100, days).encodeABI());
+    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.stake(amount * 100, days).encodeABI())
+      .on('transactionHash', function (transactionHash) {
+      console.log(transactionHash);
+    }).then(console.log);
   }
 
   claimDividends() {
-    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.claimDividends().encodeABI());
+    this.sharedService.sendCreamCashRawTransaction(this.sharedService.getCreamCashContract().methods.claimDividends().encodeABI())
+      .on('transactionHash', function (transactionHash) {
+      console.log(transactionHash);
+    }).then(console.log);
   }
 
 }

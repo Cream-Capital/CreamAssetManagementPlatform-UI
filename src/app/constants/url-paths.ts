@@ -5,5 +5,6 @@
 export const UrlPaths = Object.freeze({
     ADD_WALLET: 'addWallet',
     BALANCES: 'balances',
-    STAKINGS: 'stakings'
+    STAKINGS: 'stakings',
+    EXCHANGE: 'exchange',
 });

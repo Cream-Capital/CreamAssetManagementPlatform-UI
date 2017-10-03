@@ -8,13 +8,15 @@ import { BalancesComponent } from './balances/balances.component';
 import {SharedService} from './shared.service';
 import {PrivateKeyGuard} from './page-guards/private-key.guard';
 import { StakingsComponent } from './stakings/stakings.component';
+import { ExchangeComponent } from './exchange/exchange.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddWalletComponent,
     BalancesComponent,
-    StakingsComponent
+    StakingsComponent,
+    ExchangeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
 <p>
   stakings works!
 </p>
-amount: <input type="number" #amount>
+amount: <input type="number" step="0.01" #amount>
 <br>
-days: <input type="number" #days>
+days: <input type="number"  #days>
 <button  (click)="stake(amount.value, days.value)">Stake</button>
 <ul>
   <li *ngFor="let staking of stakings">

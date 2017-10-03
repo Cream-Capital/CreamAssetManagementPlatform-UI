@@ -24,4 +24,8 @@ export class AppComponent {
   redirectStakings() {
     this.router.navigate([UrlPaths.STAKINGS]);
   }
+
+  redirectExchange() {
+    this.router.navigate([UrlPaths.EXCHANGE]);
+  }
 }

@@ -15,7 +15,7 @@ export class BalancesComponent implements OnInit {
   }
 
   ngOnInit() {
-    const web3 = this.sharedService.getWeb3();
+    const web3 = this.sharedService.web3;
     const address = this.sharedService.getAddress();
     web3.eth.getBalance(address).then(function (ballance) {
       console.log(ballance);

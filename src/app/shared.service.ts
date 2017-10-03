@@ -2,16 +2,19 @@ import {Injectable} from '@angular/core';
 const Web3 = require('web3');
 const creamCashJsonInterface = require('./constants/creamCash.json');
 const creamDividendsJsonInterface = require('./constants/creamDividends.json');
+const CDAXJsonInterface = require('./constants/CDAX.json');
 const Tx = require('ethereumjs-tx');
 
 @Injectable()
 export class SharedService {
   account: any = null;
   web3: any;
-  creamCashAddress = '0x0bB67cd015a54b87d5AEee976fF74ABa41adA09F';
+  creamCashAddress = '0xD7653c1424d9b50765375e8208498674B0d247a2';
   creamCashContract: any;
-  creamDividendsAddress = '0x6c0BBd6c47395d83747418aEd7B4ebe5FAD08F5C';
+  creamDividendsAddress = '0x4f69de3AA03a1cACFc3030a0D68D7566b66EFFf4';
   creamDividendsContract: any;
+  CDAXAddress = '0x989D945f0f2F34b673b378a147A709B65Ee8B9Ca';
+  CDAXContract: any;
   privateKeyBuffer: any;
   gasLimit = '0x5B8D80';
   gasPrice = '0xBA43B7400';
@@ -20,12 +23,13 @@ export class SharedService {
   constructor() {
     // TODO : use environment variables and don't hardcode addresses/urls
     this.web3 = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/ETw0GZkwyCWpiOLpvHAw'));
+    this.creamCashContract = new this.web3.eth.Contract(creamCashJsonInterface, this.creamCashAddress);
+    this.creamDividendsContract = new this.web3.eth.Contract(creamDividendsJsonInterface, this.creamDividendsAddress);
+    this.CDAXContract = new this.web3.eth.Contract(CDAXJsonInterface, this.CDAXAddress);
   }
 
   setPrivateKey(privateKey: string) {
     this.account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
-    this.creamCashContract = new this.web3.eth.Contract(creamCashJsonInterface, this.creamCashAddress);
-    this.creamDividendsContract = new this.web3.eth.Contract(creamDividendsJsonInterface, this.creamDividendsAddress);
     if (privateKey.startsWith('0x')) {
       privateKey = privateKey.slice(2);
     }
@@ -36,11 +40,11 @@ export class SharedService {
     this.account = account;
     this.creamCashContract = new this.web3.eth.Contract(creamCashJsonInterface, this.creamCashAddress);
     this.creamDividendsContract = new this.web3.eth.Contract(creamDividendsJsonInterface, this.creamDividendsAddress);
-    this.privateKeyBuffer = Buffer.from(account.privateKey, 'hex');
+    this.setPrivateKey(account.privateKey);
   }
 
   sendCreamCashRawTransaction(data: string) {
-    this.web3.eth.getTransactionCount(this.account.address).then(function (count) {
+    return this.web3.eth.getTransactionCount(this.account.address).then(function (count) {
       const txParams = {
         gasLimit: this.gasLimit,
         chainId: this.chainId,
@@ -48,11 +52,28 @@ export class SharedService {
         gasPrice: this.gasPrice,
         nonce: this.web3.utils.toHex(count),
         data: data
-      }
+      };
       const tx = new Tx(txParams);
       tx.sign(this.privateKeyBuffer);
-      const serializedTx = tx.serialize()
-      this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).then(console.log);
+      const serializedTx = tx.serialize();
+      return this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));
+    }.bind(this));
+  }
+
+  sendCDAXRawTransaction(value: number) {
+    return this.web3.eth.getTransactionCount(this.account.address).then(function (count) {
+      const txParams = {
+        gasLimit: this.gasLimit,
+        chainId: this.chainId,
+        to: this.CDAXAddress,
+        gasPrice: this.gasPrice,
+        nonce: this.web3.utils.toHex(count),
+        value: this.web3.utils.toHex(value)
+      };
+      const tx = new Tx(txParams);
+      tx.sign(this.privateKeyBuffer);
+      const serializedTx = tx.serialize();
+      return this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));
     }.bind(this));
   }
 
@@ -79,4 +100,6 @@ export class SharedService {
   getPrivateKeyBuffer() {
     return this.privateKeyBuffer;
   }
+
+
 }

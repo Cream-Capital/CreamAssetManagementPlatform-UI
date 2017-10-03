@@ -40,7 +40,6 @@ export class AddWalletComponent implements OnInit {
     const web3 = this.sharedService.web3;
     myReader.onloadend = function (e) {
       // you can perform an action with readed data here
-      console.log(myReader.result);
       this.wallet = myReader.result.toLowerCase();
     }.bind(this);
 
@@ -62,9 +61,6 @@ export class AddWalletComponent implements OnInit {
   }
 
   processPrivateKey(privateKey: string) {
-    if (!privateKey.startsWith('0x')) {
-      privateKey = '0x' + privateKey;
-    }
     this.sharedService.setPrivateKey(privateKey);
     this.redirectNextPage();
   }
