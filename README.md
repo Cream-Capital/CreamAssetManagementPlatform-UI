@@ -1,6 +1,6 @@
 # CreamUI
 
-The graphical user interface for interracting with our Smart Contracts deployed on the Ethereum Blockchain. 
+The graphical user interface created using Angular 4 which allows users to easily interracting with our Smart Contracts deployed on the Ethereum Blockchain. 
 
 People will be able to upload their wallet or provide the private key to interract with Cream Cash, Cream and CDAX. The private key is stored only locally in memory and will be wiped out on refresh. 
 
