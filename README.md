@@ -1,4 +1,4 @@
-# CreamUI
+# Cream Asset Management Platform
 
 The graphical user interface created using Angular 4 which allows users to easily interracting with our Smart Contracts deployed on the Ethereum Blockchain. 
 
